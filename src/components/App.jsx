@@ -6,8 +6,12 @@ class App extends React.Component {
       currVid: window.exampleVideoData[0]
     };
   }
+  changeVideo(x) {
+    this.setState(
+      this.state.currVid = x
+    );
+  }
   render() {
-    // console.log('exampleWindowData: ', this.props);
     return (
       <div>
         <Nav />
@@ -15,7 +19,7 @@ class App extends React.Component {
           <VideoPlayer video={this.state.currVid}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={this.state.videos}/>
+          <VideoList videos={this.state.videos} click={this.changeVideo.bind(this)}/>
         </div>
       </div>
     );
