@@ -2,19 +2,40 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      videos: window.exampleVideoData,
-      currVid: window.exampleVideoData[0]
+      videos: [],
+      currVid: null
     };
   }
-  changeVideo(x) {
-    this.setState(
-      this.state.currVid = x
+
+  componentDidMount() {
+    this.getVideos('react tutorials');
+  }
+
+  changeVideo(video) {
+    this.setState({
+      currVid: video,
+      videos: []
+    });
+  }
+
+  getVideos(query) {
+    var options = {
+      key: this.props.API_KEY,
+      q: query
+    };
+
+    this.props.searchYouTube(options, (videos) => 
+      this.setState({
+        currVid: videos[0],
+        videos: videos
+      })
     );
   }
+
   render() {
     return (
       <div>
-        <Nav />
+        <Nav search={this.getVideos.bind(this)} />
         <div className="col-md-7">
           <VideoPlayer video={this.state.currVid}/>
         </div>
